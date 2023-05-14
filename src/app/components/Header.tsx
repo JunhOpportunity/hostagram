@@ -1,12 +1,16 @@
+"use client";
+
 import Link from "next/link";
 import {
   AiOutlineHome,
   AiOutlineSearch,
   AiOutlinePlusSquare,
 } from "react-icons/ai";
-import { BsSearch } from "react-icons/bs";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
+  const pathname = usePathname();
+  console.log(pathname);
   return (
     <header className="flex justify-between p-2 w-full max-w-6xl mx-auto items-center">
       <Link href="/" className="font-black text-2xl">
@@ -22,7 +26,10 @@ export default function Header() {
         <Link href="/upload" className="hover:text-gray-400">
           <AiOutlinePlusSquare />
         </Link>
-        <Link href="/signin" className="border-2 rounded-md border-red-400 p-1 text-sm font-black hover:text-gray-400">
+        <Link
+          href="/signin"
+          className="border-2 rounded-md border-red-400 p-1 text-sm font-black hover:text-gray-400"
+        >
           Sign in
         </Link>
       </nav>
