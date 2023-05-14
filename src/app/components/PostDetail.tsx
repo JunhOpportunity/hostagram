@@ -27,7 +27,7 @@ export default function PostDetail({ postData, onClick }: Props ) {
           </div>
           <div className="grow">
             {postData.comments.map((comment) => (
-              <div className="flex">
+              <div className="flex" key={comment.userName}>
                 <UserImage userImageUrl={comment.userImageurl} />
                 <h4>{comment.userName}</h4>
                 <h4>{comment.userComment}</h4>
