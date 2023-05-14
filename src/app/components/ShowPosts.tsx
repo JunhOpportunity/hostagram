@@ -8,7 +8,7 @@ export default function ShowPosts({ postList }: PostList) {
   return (
     <section>
       {postList.map((post) => (
-        <PostCard postData={post} />
+        <PostCard postData={post} key={post.userName} />
       ))}
     </section>
   );
