@@ -10,7 +10,7 @@ type Props = {
 
 export default function PostDetail({ postData, onClick }: Props ) {
   return (
-    <section className="w-full h-full">
+    <section>
       <article className="z-20 bg-white fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex">
         <div className="w-[700px] h-[700px] relative">
           <Image
