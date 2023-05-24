@@ -67,6 +67,8 @@ const currentUser: UserData = {
   userEmail: "userEmail@email.com",
   userIntro: "userIntro",
   userCategory: "userCategory",
+  followers: 10,
+  following: 10,
 };
 
 
