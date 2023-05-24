@@ -7,6 +7,8 @@ export type UserData = {
   userEmail: string;
   userIntro: string;
   userCategory: string;
+  followers: number;
+  following: number;
 };
 
 type CurrentUser = {
