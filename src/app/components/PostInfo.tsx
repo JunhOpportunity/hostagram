@@ -19,9 +19,9 @@ export default function PostInfo({ postData }: PostData) {
       </div>
       <div className="flex border-t mt-2 p-2 items-center justify-between">
         <RiEmotionHappyLine />
-        <form>
+        <form className="flex w-full">
           <input
-            className=""
+            className="w-full"
             type="text"
             placeholder="Add a comment..."
             required

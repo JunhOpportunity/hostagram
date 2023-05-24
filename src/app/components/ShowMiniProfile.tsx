@@ -15,7 +15,7 @@ type CurrentUser = {
 
 export default function ShowMiniProfile({ currentUser }: CurrentUser) {
   return (
-    <section className="flex flex-col gap-5">
+    <section className="flex flex-col gap-5 sticky top-[10px]">
       <div className="flex items-center gap-4">
         <UserImage userImageUrl={currentUser.userImageUrl} />
         <div className="flex flex-col">
