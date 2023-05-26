@@ -14,8 +14,8 @@ export default function ShowUserList({ userList, text }: Props) {
   return (
     <>
       {text === ""
-        ? userList.map((user) => <UserSearchBox userData={user} />)
-        : searchData.map((user) => <UserSearchBox userData={user} />)}
+        ? userList.map((user) => <UserSearchBox userData={user} key={user.userName}/>)
+        : searchData.map((user) => <UserSearchBox userData={user} key={user.userName}/>)}
     </>
   );
 }
