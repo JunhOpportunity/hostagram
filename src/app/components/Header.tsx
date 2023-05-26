@@ -22,7 +22,7 @@ export default function Header() {
         <Link href="/search" className="hover:text-gray-400">
           <AiOutlineSearch />
         </Link>
-        <Link href="/upload" className="hover:text-gray-400">
+        <Link href="/newpost" className="hover:text-gray-400">
           <AiOutlinePlusSquare />
         </Link>
         <Link
