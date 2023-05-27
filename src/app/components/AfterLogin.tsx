@@ -49,6 +49,8 @@ const currentUser: UserData = {
   userEmail: "userEmail@email.com",
   userIntro: "userIntro",
   userCategory: "userCategory",
+  followers: 1,
+  following: 1
 };
 
 export default function AfterLogin() {
