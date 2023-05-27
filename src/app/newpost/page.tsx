@@ -1,25 +1,18 @@
 "use client";
-import { BiImageAdd } from 'react-icons/bi';
-import { ChangeEvent, HTMLInputTypeAttribute, useRef } from "react";
+import { BiImageAdd } from "react-icons/bi";
+import { ChangeEvent } from "react";
 import UserImage from "../components/UserImage";
 
 export default function NewpostPage() {
-  const fileInput = useRef();
-  const onClickImageUpload = () => {
-    fileInput.current.click();
-  };
   const onFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const {
-      target: { files },
-    } = event;
-    const theFile = files[0];
+    const targetFiles = (event.target as HTMLInputElement).files as FileList;
+    
+    // const {
+    //   target: { files },
+    // } = event;
+    const theFile = targetFiles[0];
     const reader = new FileReader();
-    reader.onloadend = (finishedEvent) => {
-      const {
-        currentTarget: { result },
-      } = finishedEvent;
-      console.log(result);
-    };
+    console.log(reader.result);
     reader.readAsDataURL(theFile);
   };
 
@@ -30,19 +23,21 @@ export default function NewpostPage() {
         <input
           type="file"
           id="post"
-          ref={fileInput}
           accept="image/png, image/jpeg"
           onChange={onFileChange}
           className="hidden"
         />
-        <div
-          onClick={onClickImageUpload}
+        <label
+          htmlFor="post"
           className="w-full h-[300px] flex flex-col justify-center text-center border-2 border-dashed border-blue-300 cursor-pointer mb-[10px]"
         >
-          <BiImageAdd className="text-7xl mx-auto"/>
+          <BiImageAdd className="text-7xl mx-auto" />
           <h1 className="text-2xl">Drag and Drop your image here or click</h1>
-        </div>
-        <textarea placeholder='게시물 내용을 작성해주세요...' className='outline-none border-2 h-[300px] mb-[10px]'/>
+        </label>
+        <textarea
+          placeholder="게시물 내용을 작성해주세요..."
+          className="outline-none border-2 h-[300px] mb-[10px]"
+        />
         <input
           type="submit"
           className="cursor-pointer w-full bg-blue-300 text-white"

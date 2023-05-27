@@ -1,8 +1,10 @@
+import { ChangeEventHandler } from "react";
+
 export default function SearchInput({
   onChange,
   value,
 }: {
-  onChange: Function;
+  onChange: ChangeEventHandler<HTMLInputElement>;
   value: string;
 }) {
   return (
