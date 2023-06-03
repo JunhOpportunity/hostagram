@@ -1,12 +1,10 @@
-import Image from "next/image";
+'use client'
+
+import { useSession } from "next-auth/react";
 import AfterLogin from "./components/AfterLogin";
 import BeforeLogin from "./components/BeforeLogin";
 
 export default function Home() {
-  return (
-    <>
-      <BeforeLogin />
-      <AfterLogin />
-    </>
-  );
+  const { data: session } = useSession();
+  return <>{session ? <AfterLogin /> : <BeforeLogin />}</>;
 }

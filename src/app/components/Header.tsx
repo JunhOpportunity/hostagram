@@ -11,6 +11,9 @@ import {
 } from "./ui/icons";
 import { usePathname } from "next/navigation";
 import ColorButton from "./ui/ColorButton";
+import { useSession, signIn, signOut } from "next-auth/react";
+import Image from "next/image";
+import Avatar from "./Avatar";
 
 const menu = [
   {
@@ -32,6 +35,8 @@ const menu = [
 
 export default function Header() {
   const pathname = usePathname();
+  const { data: session } = useSession();
+  const user = session?.user;
   return (
     <header className="flex justify-between p-2 w-full max-w-screen-xl mx-auto items-center">
       <Link href="/" className="font-black text-2xl">
@@ -47,7 +52,18 @@ export default function Header() {
             {pathname == item.href ? item.clickedIcon : item.icon}
           </Link>
         ))}
-        <ColorButton text={"Sing in"} onClick={() => {}} />
+        {session && (
+          <Link
+            href={`/user/${user?.name}`}
+          >
+            <Avatar image={user?.image}/>
+          </Link>
+        )}
+        {session ? (
+          <ColorButton text={"Sign out"} onClick={() => signOut()} size='small'/>
+        ) : (
+          <ColorButton text={"Sign in"} onClick={() => signIn()} size='small'/>
+        )}
       </nav>
     </header>
   );
