@@ -1,15 +1,31 @@
+"use client";
+
+import { getAllPosts } from "@/service/post";
+import { useEffect, useState } from "react";
 import PostCard, { PostDataType } from "./PostCard";
 
-type PostList = {
-  postList: PostDataType[];
-};
+export default function ShowPosts() {
+  const [allPosts, setAllPosts] = useState<PostDataType[]>([]);
 
-export default function ShowPosts({ postList }: PostList) {
+  useEffect(() => {
+    getAllPosts()
+      .then((data) => {
+        setAllPosts(data);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
   return (
-    <section>
-      {postList.map((post) => (
-        <PostCard postData={post} key={post.userName} />
-      ))}
-    </section>
+    <>
+      {allPosts ? (
+        <>
+          {allPosts.map((post) => (
+            <PostCard postData={post}/>
+          ))}
+        </>
+      ) : (
+        <>X</>
+      )}
+    </>
   );
 }
