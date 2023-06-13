@@ -1,24 +1,29 @@
 "use client";
 
-import Image from "next/image";
-import UserImage from "./UserImage";
 import PostInfo from "./PostInfo";
 import PostDetail from "./PostDetail";
 import { useState } from "react";
+import Avatar from "./Avatar";
+
+export type Author = {
+  email: string;
+  image: string;
+  name: string;
+  username: string;
+};
 
 export type Comment = {
-  userComment: string;
-  userName: string;
-  userImageurl: string;
+  author: Author;
+  comment: string;
+  _key: string;
 };
 
 export type PostDataType = {
-  userImageUrl: string;
+  author: Author;
+  likes: Author[];
   postImageUrl: string;
-  likedNumber: number;
   userName: string;
-  title: string;
-  createdAt: string;
+  _createdAt: string;
   comments: Comment[];
 };
 
@@ -28,25 +33,25 @@ export type PostData = {
 
 export default function PostCard({ postData }: PostData) {
   const [isOpen, setIsOpen] = useState(false);
-  const onClick = () => {
-    setIsOpen((e) => !e);
+  const onClick = (booleanString: boolean) => {
+    setIsOpen(booleanString);
   };
   return (
-    <section className="shadow-md flex flex-col max-w-[500px] mx-auto">
+    <section
+      className="shadow-md flex flex-col max-w-[500px] mx-auto"
+    >
       <div className="flex p-2 gap-5 items-center text-xl font-black">
-        <UserImage userImageUrl={postData.userImageUrl} />
-        <h5>{postData.userName}</h5>
+        <Avatar image={postData.author.image} />
+        <h5>{postData.author.username}</h5>
       </div>
-      <div onClick={onClick} className="w-[500px] h-[500px] relative">
-        <Image
-          src={`${postData.postImageUrl}`}
-          fill={true}
-          alt="Post Image"
-          style={{ objectFit: "cover" }}
-        />
-      </div>
+      <img
+        onClick={() => onClick(true)}
+        src={`${postData.postImageUrl}`}
+        alt="Post Image"
+        className="w-[500px] h-[500px] object-cover"
+      />
       <PostInfo postData={postData} />
-      {isOpen && <PostDetail postData={postData} onClick={setIsOpen} />}
+      {isOpen && <PostDetail postData={postData} onClick={onClick} />}
     </section>
   );
 }
