@@ -20,7 +20,7 @@ export default function ShowPosts() {
       {allPosts ? (
         <>
           {allPosts.map((post) => (
-            <PostCard postData={post}/>
+            <PostCard postData={post} key={post._createdAt}/>
           ))}
         </>
       ) : (
