@@ -9,7 +9,7 @@ type StoryList = {
   storyData: StoryData[];
 };
 
-export default function ShowStory({ storyData }: StoryList) {
+export default function FollowingBar({ storyData }: StoryList) {
   return (
     <section className="flex p-2 w-full h-[100px] shadow-md gap-4 overflow-y-auto">
       {storyData.map((story) => (
