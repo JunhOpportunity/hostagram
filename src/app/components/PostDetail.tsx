@@ -11,21 +11,27 @@ export default function PostDetail({ postData, onClick }: Props) {
   return (
     <section>
       <article className="z-20 bg-white fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex">
-      <img
-        src={`${postData.postImageUrl}`}
-        alt="Post Image"
-        className="w-[700px] h-[700px] object-cover"
-      />
-        <div className="flex flex-col">
-          <div className="flex p-2 gap-5 items-center text-xl font-black">
-            <Avatar image={postData.author.image} />
-            <h5>{postData.userName}</h5>
+        <img
+          src={`${postData.postImageUrl}`}
+          alt="Post Image"
+          className="w-[500px] h-[500px] object-cover"
+        />
+        <div className="flex flex-col w-[300px]">
+          <div className="flex p-[10px] gap-1 items-center text-xl font-black">
+            <Avatar image={postData.author.image} size="small" highlight={true} />
+            <h5 className="text-2xl">{postData.author.username}</h5>
           </div>
-          <div className="grow">
+          <div className="grow p-[10px]">
             {postData.comments.map((comment) => (
-              <div className="flex" key={comment._key}>
-                <Avatar image={comment.author.image} />
-                <h4>{comment.author.username}</h4>
+              <div className="flex mb-[10px]" key={comment._key}>
+                <Avatar
+                  image={comment.author.image}
+                  size="small"
+                  highlight={true}
+                />
+                <h4 className="font-black mr-[5px]">
+                  {comment.author.username}
+                </h4>
                 <h4>{comment.comment}</h4>
               </div>
             ))}
