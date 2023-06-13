@@ -47,7 +47,7 @@ export default function UserPosts({ postList }: PostListType) {
       </div>
       <div className="grid gap-4 grid-cols-3">
         {postList.map((postData) => (
-          <PostIntro postData={postData} key={postData.createdAt}/>
+          <PostIntro postData={postData} key={postData._createdAt}/>
         ))}
       </div>
     </section>

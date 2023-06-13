@@ -1,8 +1,8 @@
+import { User } from "@/model/user";
 import Image from "next/image";
-import { UserData } from "./ShowMiniProfile";
 
 type currentUserData = {
-  currentUser : UserData;
+  currentUser : User;
 }
 
 export default function UserProfile({currentUser} : currentUserData) {
@@ -11,14 +11,14 @@ export default function UserProfile({currentUser} : currentUserData) {
       <div className="w-[100px] h-[100px] relative ">
         <Image
           className="rounded-full border-2"
-          src={`${currentUser.userImageUrl}`}
+          src={`${currentUser.image}`}
           fill={true}
           style={{ objectFit: "cover" }}
           alt="User Image"
         />
       </div>
       <div className="flex flex-col gap-2 font-black text-lg">
-        <div>{currentUser.userName}</div>
+        <div>{currentUser.username}</div>
         <div>
           2 posts 3 followers 4 following
         </div>
