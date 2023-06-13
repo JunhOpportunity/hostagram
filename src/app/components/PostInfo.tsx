@@ -11,11 +11,11 @@ export default function PostInfo({ postData }: PostData) {
         <BsBookmark className="cursor-pointer" />
       </div>
       <div className="px-2 text-lg">
-        <b className="font-black">{postData.likedNumber} Likes</b>
+      <b className="font-black">{postData.likes.length} Likes</b>
         <br />
-        <b className="font-black">{postData.userName}</b> {postData.title}
+        <b className="font-black">{postData.author.username}</b>
         <br />
-        {postData.createdAt}
+        {postData._createdAt}
       </div>
       <div className="flex border-t mt-2 p-2 items-center justify-between">
         <RiEmotionHappyLine />
