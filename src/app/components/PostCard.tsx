@@ -41,7 +41,7 @@ export default function PostCard({ postData }: PostData) {
       className="shadow-md flex flex-col max-w-[500px] mx-auto"
     >
       <div className="flex p-2 gap-5 items-center text-xl font-black">
-        <Avatar image={postData.author.image} />
+        <Avatar image={postData.author.image} size="small" highlight={true}/>
         <h5>{postData.author.username}</h5>
       </div>
       <img

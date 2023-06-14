@@ -12,7 +12,6 @@ import {
 import { usePathname } from "next/navigation";
 import ColorButton from "./ui/ColorButton";
 import { useSession, signIn, signOut } from "next-auth/react";
-import Image from "next/image";
 import Avatar from "./Avatar";
 
 const menu = [
@@ -37,8 +36,9 @@ export default function Header() {
   const pathname = usePathname();
   const { data: session } = useSession();
   const user = session?.user;
+
   return (
-    <header className="flex justify-between p-2 w-full max-w-screen-xl mx-auto items-center">
+    <header className="flex justify-between p-2 w-full max-w-screen-xl mx-auto items-center sticky top-[0px] z-1 bg-white">
       <Link href="/" className="font-black text-2xl">
         Instagram
       </Link>
@@ -56,7 +56,7 @@ export default function Header() {
           <Link
             href={`/user/${user?.name}`}
           >
-            <Avatar image={user?.image}/>
+            <Avatar image={user?.image} size="small" highlight={true}/>
           </Link>
         )}
         {session ? (
