@@ -21,8 +21,8 @@ export async function addUser({ username, email, name, image, id }: OAuthUser) {
   });
 }
 
-export function getUser() {
-  const query = '*[_type == "user" && name == "Rachel"]'; 
+export function getUser(email: string) {
+  const query = `*[_type == "user" && email == "${email}"]{..., following[]->, followers[]->, bookmarks[]->}`;
   const data = client.fetch(query);
-  return data
+  return data;
 }
