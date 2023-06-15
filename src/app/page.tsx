@@ -5,11 +5,12 @@ import ShowPosts from "./components/ShowPosts";
 import FollowingBar from "./components/FollowingBar";
 import SideBar from "./components/SideBar";
 import SwrTest from "./components/SwrTest";
+import FollowingCarousel from "./components/FollowingCarousel";
 
 export default async function HomePage() {
   const session = await getServerSession(handler);
   const user = session?.user;
-  console.log("유저 데이터", user)
+  console.log("유저 데이터", user);
 
   if (!user) {
     redirect("/auth/signin");
@@ -18,9 +19,8 @@ export default async function HomePage() {
   return (
     <section className="w-full flex flex-col md:flex-row max-w-[850px] p-4 mx-auto gap-10">
       <div className="w-full basis-3/4">
-        {/*<FollowingBar />*/}
         {/*<ShowPosts />*/}
-        <SwrTest email={user.email}/>
+        <SwrTest email={user.email} />
       </div>
       <div className="basis-1/4">
         <SideBar user={user} />

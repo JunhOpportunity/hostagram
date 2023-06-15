@@ -2,6 +2,7 @@
 
 import { User } from "@/model/user";
 import useSWR from "swr";
+import FollowingCarousel from "../components/FollowingCarousel";
 
 export default function Profile() {
   const fetcher = (url: string) => fetch(url).then((res) => res.json())
@@ -17,6 +18,7 @@ export default function Profile() {
     <div>
       hello {data.data[0].name}!
       <br />
+      <FollowingCarousel following={data.data[0].following} />
       follow : {data.data[0].following.length}
       {data.data[0].following.map((item: User) => (
         <div key={item.name}>

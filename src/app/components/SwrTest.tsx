@@ -2,25 +2,19 @@
 
 import { User } from "@/model/user";
 import { useUser } from "@/service/swr";
+import { ClipLoader } from "react-spinners";
+import FollowingCarousel from "./FollowingCarousel";
 
 export default function SwrTest({email} : {email: string}) {
 
   const {user, isError, isLoading} = useUser(email)
   console.log(user);
   if (isError) return <div>failed to load</div>;
-  if (isLoading) return <div>loading...</div>;
+  if (isLoading) return <ClipLoader color="#d63636" />;
 
   return (
     <div>
-      hello {user.data[0].name}!
-      <br />
-      follow : {user.data[0].following.length}
-      {user.data[0].following.map((item: User) => (
-        <div key={item.name}>
-          {item.email} / {item.name}
-          <img src={`${item.image}`} className="w-[10px] h[10px] rounded-full"/>
-        </div>
-      ))}
+      <FollowingCarousel following={user.data[0].following}/>
     </div>
   );
 }
