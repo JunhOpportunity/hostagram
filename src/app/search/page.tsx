@@ -45,7 +45,6 @@ export default function SearchPage() {
       target: { value },
     } = event;
     setText(value);
-    console.log(value);
   };
   return (
     <>

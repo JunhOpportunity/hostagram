@@ -12,7 +12,7 @@ export default function NewpostPage() {
     // } = event;
     const theFile = targetFiles[0];
     const reader = new FileReader();
-    console.log(reader.result);
+
     reader.readAsDataURL(theFile);
   };
 

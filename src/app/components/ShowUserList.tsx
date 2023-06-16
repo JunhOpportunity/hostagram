@@ -10,7 +10,7 @@ export default function ShowUserList({ userList, text }: Props) {
   const searchData = userList.filter(
     (data) => data.username.includes(text) || data.name.includes(text)
   );
-  console.log(searchData);
+
   return (
     <>
       {text === ""

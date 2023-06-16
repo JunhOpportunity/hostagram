@@ -9,6 +9,5 @@ export async function getAllPosts() {
 export async function getPosts() {
   const query = '*[_type == "post"]';
   const data = await client.fetch(query);
-  console.log("Sanity Data", data);
   return;
 }

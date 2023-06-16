@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 export default function PostInfo({ postData }: PostData) {
   const { data: session } = useSession();
   const user = session?.user;
-  console.log("유저", postData);
+
   return (
     <div>
       <div className="flex justify-between items-center text-2xl p-2">
