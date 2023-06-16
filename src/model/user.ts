@@ -3,14 +3,12 @@ export type User = {
   username: string;
   image?: string;
   email: string;
-}
+};
 
-export type UserData = {
-  name: string;
-  username: string;
-  image?: string;
-  email: string;
+export type SimpleUser = Pick<User, "username" | "image">;
+
+export type DetailUser = User & {
   bookmarks?: string[];
-  followers?: User[];
-  following?: User[]
-}
+  followers: SimpleUser[];
+  following: SimpleUser[];
+};
