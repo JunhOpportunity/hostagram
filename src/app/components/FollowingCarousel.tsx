@@ -1,6 +1,7 @@
 "use client";
 
-import { User } from "@/model/user";
+import { SimpleUser } from "@/model/user";
+import Link from "next/link";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Avatar from "./Avatar";
@@ -26,12 +27,11 @@ export const responsive = {
 export default function FollowingCarousel({
   following,
 }: {
-  following: User[];
+  following: SimpleUser[];
 }) {
   return (
     <>
       <Carousel
-        className="py-[20px] px-[10px] border border-slate-300 rounded-md "
         arrows={false}
         swipeable={true}
         draggable={true}
@@ -44,12 +44,21 @@ export default function FollowingCarousel({
         dotListClass="custom-dot-list-style"
         itemClass="carousel-item-padding-40-px"
       >
-        {following.map((user) => (
-          <div className="flex flex-col justify-center items-center" key={user.name}>
-            <Avatar image={user.image} size="big" highlight={true} />
-            <h3 className="text-bold">{user.name}</h3>
-          </div>
-        ))}
+        <ul className="w-full flex gap-2">
+          {following.map((user) => (
+            <li key={user.username}>
+              <Link
+                className="w-20 flex flex-col justify-center items-center"
+                href={`/user/${user.username}`}
+              >
+                <Avatar image={user.image} size="big" highlight={true} />
+                <p className="w-full text-sm text-center text-ellipsis ">
+                  {user.username}
+                </p>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </Carousel>
     </>
   );
