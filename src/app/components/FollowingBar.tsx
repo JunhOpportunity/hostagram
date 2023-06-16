@@ -1,23 +1,19 @@
-import UserImage from "./UserImage";
+"use client";
 
-export type StoryData = {
-  userImageUrl: string;
-  userName: string;
-};
+import { useUser } from "@/service/swr";
+import { ClipLoader } from "react-spinners";
+import FollowingCarousel from "./FollowingCarousel";
 
-type StoryList = {
-  storyData: StoryData[];
-};
+export default function FollowingBar({email} : {email: string}) {
 
-export default function FollowingBar({ storyData }: StoryList) {
+  const {user, isError, isLoading} = useUser(email)
+  console.log(user);
+  if (isError) return <div>failed to load</div>;
+  if (isLoading) return <ClipLoader color="#d63636" />;
+
   return (
-    <section className="flex p-2 w-full h-[100px] shadow-md gap-4 overflow-y-auto">
-      {storyData.map((story) => (
-        <div className="flex flex-col justfy-center items-center" key={story.userName}>
-          <UserImage userImageUrl={story.userImageUrl} />
-          <h5>{story.userName}</h5>
-        </div>
-      ))}
-    </section>
+    <div>
+      <FollowingCarousel following={user.data[0].following}/>
+    </div>
   );
 }

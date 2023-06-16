@@ -45,7 +45,7 @@ export default function FollowingCarousel({
         itemClass="carousel-item-padding-40-px"
       >
         {following.map((user) => (
-          <div className="flex flex-col justify-center items-center">
+          <div className="flex flex-col justify-center items-center" key={user.name}>
             <Avatar image={user.image} size="big" highlight={true} />
             <h3 className="text-bold">{user.name}</h3>
           </div>

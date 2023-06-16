@@ -1,11 +1,8 @@
 import { getServerSession } from "next-auth";
 import { handler } from "./api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
-import ShowPosts from "./components/ShowPosts";
-import FollowingBar from "./components/FollowingBar";
 import SideBar from "./components/SideBar";
-import SwrTest from "./components/SwrTest";
-import FollowingCarousel from "./components/FollowingCarousel";
+import SwrTest from "./components/FollowingBar";
 
 export default async function HomePage() {
   const session = await getServerSession(handler);
