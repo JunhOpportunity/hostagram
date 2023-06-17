@@ -10,7 +10,6 @@ export default function Profile() {
     `/api/user/${"twinjyjh5@gmail.com"}`,
     fetcher
   );
-  console.log(data);
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
 

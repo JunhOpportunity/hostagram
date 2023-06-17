@@ -26,3 +26,13 @@ export function getUser(email: string) {
   const data = client.fetch(query);
   return data;
 }
+
+export async function getUserByEmail(email: string) {
+  return client.fetch(`*[_type == "user" && email == "${email}"][0]{
+      ..., 
+      "id":_id,
+      following[]->{username, image}, 
+      followers[]->{username, image}, 
+      "bookmarks": bookmarks[]->_id
+    }`);
+}

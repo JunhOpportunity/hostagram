@@ -9,7 +9,6 @@ export default function PostIntro({ postData }: PostData) {
   const [isOpen, setIsOpen] = useState(false);
   const onClick = () => {
     setIsOpen((e) => !e);
-    console.log(isOpen);
   };
   return (
     <section className="shadow-md">
