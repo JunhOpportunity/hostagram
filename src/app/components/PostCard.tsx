@@ -4,6 +4,7 @@ import PostInfo from "./PostInfo";
 import PostDetail from "./PostDetail";
 import { useState } from "react";
 import Avatar from "./Avatar";
+import { FullPost } from "@/model/post";
 
 export type Author = {
   email: string;
@@ -31,7 +32,7 @@ export type PostData = {
   postData: PostDataType;
 };
 
-export default function PostCard({ postData }: PostData) {
+export default function PostCard( postData : FullPost) {
   const [isOpen, setIsOpen] = useState(false);
   const onClick = (booleanString: boolean) => {
     setIsOpen(booleanString);
@@ -41,12 +42,12 @@ export default function PostCard({ postData }: PostData) {
       className="shadow-md flex flex-col max-w-[500px] mx-auto"
     >
       <div className="flex p-2 gap-5 items-center text-xl font-black">
-        <Avatar image={postData.author.image} size="small" highlight={true}/>
-        <h5>{postData.author.username}</h5>
+        <Avatar image={postData.userImage} size="small" highlight={true}/>
+        <h5>{postData.username}</h5>
       </div>
       <img
         onClick={() => onClick(true)}
-        src={`${postData.postImageUrl}`}
+        src={`${postData.image}`}
         alt="Post Image"
         className="w-[500px] h-[500px] object-cover"
       />

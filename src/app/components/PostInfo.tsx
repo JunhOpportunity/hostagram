@@ -3,8 +3,9 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { BsBookmark, BsFillBookmarkFill } from "react-icons/bs";
 import { RiEmotionHappyLine } from "react-icons/ri";
 import { useSession } from "next-auth/react";
+import { FullPost } from "@/model/post";
 
-export default function PostInfo({ postData }: PostData) {
+export default function PostInfo(postData: FullPost) {
   const { data: session } = useSession();
   const user = session?.user;
 
