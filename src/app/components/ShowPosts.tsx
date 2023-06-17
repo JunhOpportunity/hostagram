@@ -1,31 +1,30 @@
 "use client";
 
 import { getAllPosts } from "@/service/post";
-import { useEffect, useState } from "react";
 import PostCard, { PostDataType } from "./PostCard";
+import useSWR from "swr";
+import { ClipLoader } from "react-spinners";
+import { SimplePost } from "@/model/post";
 
 export default function ShowPosts() {
-  const [allPosts, setAllPosts] = useState<PostDataType[]>([]);
+  const { data:posts, isLoading, error } = useSWR<SimplePost[]>(`/api/posts`);
+  console.log(" 포스트 ", posts);
 
-  useEffect(() => {
-    getAllPosts()
-      .then((data) => {
-        setAllPosts(data);
-      })
-      .catch((error) => console.log(error));
-  }, []);
+  if (error) return <div>failed to load</div>;
 
   return (
-    <>
-      {allPosts ? (
-        <>
-          {allPosts.map((post) => (
-            <PostCard postData={post} key={post._createdAt}/>
-          ))}
-        </>
+    <section>
+      {isLoading ? (
+        <ClipLoader color="#d63636" />
       ) : (
-        <>X</>
+        <ul>
+          {posts && posts.map((post) => (
+            <li key={post.id} >
+            <PostCard postData={post} />
+            </li>
+          ))}
+        </ul>
       )}
-    </>
+    </section>
   );
 }
