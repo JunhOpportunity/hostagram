@@ -1,3 +1,5 @@
+import { User } from "./user";
+
 export type Comment = {
   comment: string;
   username: string;
@@ -15,6 +17,6 @@ export type FullPost = {
   image: string;
   text: string;
   createdAt: string;
-  likes: string[];
+  likes: User[];
   comments: Comment[];
 }

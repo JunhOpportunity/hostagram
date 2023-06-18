@@ -1,4 +1,5 @@
-import { client } from "./sanity";
+import { SimplePost } from "@/model/post";
+import { client, urlFor } from "./sanity";
 
 export async function getAllPosts() {
   const query =
@@ -20,15 +21,19 @@ const simplePostPorjection = `
   "image": photo,
   "likes": likes[]->username,
   "text": comments[0].comment,
-  "comments": count(comments)",
+  "comments": count(comments),
   "id":_id,
   "createdAt":_createdAt
-`
+`;
 
-export async function getFollowingPosts(username: string) {
-  const query = `*[_type == "post" && author->username == "${username}"
-   || author._ref in *[_type=="user" && username == "${username}"].following[]._ref ]
-    | order(_createdAt desc){${simplePostPorjection}}`;
-  const data = await client.fetch(query);
-  return data;
+export async function getFollowingPosts(email: string) {
+  return client
+    .fetch(
+      `*[_type == "post" && author->email == "${email}"
+    || author._ref in *[_type=="user" && email == "${email}"].following[]._ref ]
+    | order(_createdAt desc){${simplePostPorjection}}`
+    )
+    .then((posts) =>
+      posts.map((post: SimplePost) => ({ ...post, image: urlFor(post.image) }))
+    );
 }
