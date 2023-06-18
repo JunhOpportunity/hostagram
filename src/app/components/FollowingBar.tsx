@@ -8,10 +8,6 @@ import FollowingCarousel from "./FollowingCarousel";
 export default function FollowingBar({ email }: { email: string }) {
   const { data, isLoading, error } = useSWR<DetailUser>(`/api/me`);
   const user = data?.following;
-  console.log("test data", data?.following);
-
-  // const {user, isError, isLoading} = useUser(email)
-  // console.log(user);
 
   if (error) return <div>failed to load</div>;
   return (

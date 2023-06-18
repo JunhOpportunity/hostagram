@@ -1,26 +1,24 @@
 "use client";
 
-import { getAllPosts } from "@/service/post";
-import PostCard, { PostDataType } from "./PostCard";
 import useSWR from "swr";
-import { ClipLoader } from "react-spinners";
+import { ClipLoader, GridLoader } from "react-spinners";
 import { SimplePost } from "@/model/post";
+import PostCard from "./PostCard";
 
 export default function ShowPosts() {
-  const { data:posts, isLoading, error } = useSWR<SimplePost[]>(`/api/posts`);
+  const { data: posts, isLoading, error } = useSWR<SimplePost[]>(`/api/posts`);
   console.log(" 포스트 ", posts);
 
   if (error) return <div>failed to load</div>;
 
   return (
     <section>
-      {isLoading ? (
-        <ClipLoader color="#d63636" />
-      ) : (
+      {isLoading && <GridLoader color="#d63636" />}
+      {posts && (
         <ul>
-          {posts && posts.map((post) => (
-            <li key={post.id} >
-            <PostCard postData={post} />
+          {posts.map((post) => (
+            <li key={post.id}>
+              <PostCard post={post} />
             </li>
           ))}
         </ul>
