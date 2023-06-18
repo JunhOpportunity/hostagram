@@ -4,7 +4,8 @@ import PostInfo from "./PostInfo";
 import PostDetail from "./PostDetail";
 import { useState } from "react";
 import Avatar from "./Avatar";
-import { FullPost } from "@/model/post";
+import { SimplePost } from "@/model/post";
+import Image from "next/image";
 
 export type Author = {
   email: string;
@@ -32,27 +33,31 @@ export type PostData = {
   postData: PostDataType;
 };
 
-export default function PostCard( postData : FullPost) {
+type Props = {
+  post: SimplePost;
+};
+
+export default function PostCard({ post }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const onClick = (booleanString: boolean) => {
     setIsOpen(booleanString);
   };
   return (
-    <section
-      className="shadow-md flex flex-col max-w-[500px] mx-auto"
-    >
-      <div className="flex p-2 gap-5 items-center text-xl font-black">
-        <Avatar image={postData.userImage} size="small" highlight={true}/>
-        <h5>{postData.username}</h5>
+    <section className="shadow-md flex flex-col max-w-[500px] mx-auto">
+      <div className="flex items-center p-2 gap-5 text-xl font-black">
+        <Avatar image={post.userImage} size="medium" highlight={true} />
+        <span className="text-gray-900 font-bold ml-2">{post.username}</span>
       </div>
-      <img
+      <Image
         onClick={() => onClick(true)}
-        src={`${postData.image}`}
-        alt="Post Image"
-        className="w-[500px] h-[500px] object-cover"
+        src={post.image}
+        alt={`photo by ${post.username}`}
+        width={500}
+        height={500}
+        className="w-full object-cover aspect-square"
       />
-      <PostInfo postData={postData} />
-      {isOpen && <PostDetail postData={postData} onClick={onClick} />}
+      <PostInfo post={post} />
+      {isOpen && <PostDetail post={post} onClick={onClick} />}
     </section>
   );
 }
