@@ -1,15 +1,11 @@
 "use client";
 
+import { FullPost, SimplePost } from "@/model/post";
 import { useState } from "react";
 import { BsFileEarmarkPost, BsBookmark, BsHeart } from "react-icons/bs";
-import { PostDataType } from "./PostCard";
 import PostIntro from "./PostIntro";
 
-type PostListType = {
-  postList: PostDataType[];
-};
-
-export default function UserPosts({ postList }: PostListType) {
+export default function UserPosts(postList: FullPost[]) {
   const [category, setCategory] = useState("posts");
   const onClick = (categoryName: string) => {
     setCategory(categoryName);
@@ -46,9 +42,13 @@ export default function UserPosts({ postList }: PostListType) {
         </div>
       </div>
       <div className="grid gap-4 grid-cols-3">
-        {postList.map((postData) => (
-          <PostIntro postData={postData} key={postData._createdAt}/>
-        ))}
+        <ul>
+          {postList.map((postData) => (
+            <li key={postData.createdAt}>
+              {/*<PostIntro post={postData} />*/}
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
