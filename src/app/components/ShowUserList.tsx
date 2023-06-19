@@ -1,8 +1,8 @@
-import { User } from "@/model/user";
+import { SimpleUser, User } from "@/model/user";
 import UserSearchBox from "./UserSearchBox";
 
 type Props = {
-  userList: User[];
+  userList: User[]
   text: string;
 };
 
