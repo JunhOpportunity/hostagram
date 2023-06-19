@@ -1,11 +1,11 @@
 "use client";
 
+import { SimplePost } from "@/model/post";
 import Image from "next/image";
 import { useState } from "react";
-import { PostData } from "./PostCard";
 import PostDetail from "./PostDetail";
 
-export default function PostIntro({ postData }: PostData) {
+export default function PostIntro(post: SimplePost) {
   const [isOpen, setIsOpen] = useState(false);
   const onClick = () => {
     setIsOpen((e) => !e);
@@ -14,13 +14,13 @@ export default function PostIntro({ postData }: PostData) {
     <section className="shadow-md">
       <div onClick={onClick} className="w-[300px] h-[300px] relative">
         <Image
-          src={`${postData.postImageUrl}`}
+          src={`${post.image}`}
           fill={true}
           alt="Post Image"
           style={{ objectFit: "cover" }}
         />
       </div>
-      <>{isOpen && <PostDetail postData={postData} onClick={setIsOpen} />}</>
+      <>{isOpen && <PostDetail post={post} onClick={setIsOpen} />}</>
     </section>
   );
 }
