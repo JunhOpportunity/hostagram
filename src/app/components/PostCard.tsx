@@ -6,6 +6,7 @@ import { useState } from "react";
 import Avatar from "./Avatar";
 import { SimplePost } from "@/model/post";
 import Image from "next/image";
+import ModalPortal from "./ui/ModalPortal";
 
 export type Author = {
   email: string;
@@ -35,9 +36,10 @@ export type PostData = {
 
 type Props = {
   post: SimplePost;
+  priority?: boolean;
 };
 
-export default function PostCard({ post }: Props) {
+export default function PostCard({ post, priority = false }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const onClick = (booleanString: boolean) => {
     setIsOpen(booleanString);
@@ -55,9 +57,14 @@ export default function PostCard({ post }: Props) {
         width={500}
         height={500}
         className="w-full object-cover aspect-square"
+        priority={priority}
       />
       <PostInfo post={post} />
-      {isOpen && <PostDetail post={post} onClick={onClick} />}
+      {isOpen && (
+        <ModalPortal>
+          <PostDetail post={post} onClick={onClick} />
+        </ModalPortal>
+      )}
     </section>
   );
 }
