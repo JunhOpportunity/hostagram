@@ -4,6 +4,7 @@ import useSWR from "swr";
 import { ClipLoader, GridLoader } from "react-spinners";
 import { SimplePost } from "@/model/post";
 import PostCard from "./PostCard";
+import GridSpinner from "./ui/GridSpinner";
 
 export default function ShowPosts() {
   const { data: posts, isLoading, error } = useSWR<SimplePost[]>(`/api/posts`);
@@ -13,12 +14,12 @@ export default function ShowPosts() {
 
   return (
     <section>
-      {isLoading && <GridLoader color="#d63636" />}
+      {isLoading && <GridSpinner color="#d63636" />}
       {posts && (
         <ul>
-          {posts.map((post) => (
+          {posts.map((post, index) => (
             <li key={post.id}>
-              <PostCard post={post} />
+              <PostCard post={post} priority={index < 2}/>
             </li>
           ))}
         </ul>
