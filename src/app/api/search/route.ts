@@ -1,10 +1,6 @@
 import { searchUser } from "@/service/user";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-type Context = {
-  params: { keyword: string };
-};
-
-export async function GET(context: Context) {
+export async function GET(_:NextRequest) {
   return searchUser().then((data) => NextResponse.json(data));
 }

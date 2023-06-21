@@ -5,6 +5,6 @@ type Context = {
   params: { keyword: string };
 };
 
-export async function GET(_:NextRequest , context: Context) {
-  return searchUser(context.params.keyword).then((data) => NextResponse.json(data));
+export async function GET(_:NextRequest , { params: { keyword } }: Context) {
+  return searchUser(keyword).then((data) => NextResponse.json(data));
 }
