@@ -1,6 +1,6 @@
 "use client";
 
-import { User } from "@/model/user";
+import { AuthUser } from "@/model/user";
 import useSWR from "swr";
 import FollowingCarousel from "../components/FollowingCarousel";
 
@@ -19,7 +19,7 @@ export default function Profile() {
       <br />
       <FollowingCarousel following={data.data[0].following} />
       follow : {data.data[0].following.length}
-      {data.data[0].following.map((item: User) => (
+      {data.data[0].following.map((item: AuthUser) => (
         <div key={item.name}>
           {item.email} / {item.name}
           <img src={`${item.image}`} className="w-[10px] h[10px] rounded-full"/>
