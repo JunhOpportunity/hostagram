@@ -12,7 +12,7 @@ export default function UserSearch() {
   const [keyword, setKeyword] = useState<string>("");
   const debouncedKeyword = useDebounce(keyword, 1000);
   const { data, isLoading, error } = useSWR<SearchUser[]>(
-    `api/search/${debouncedKeyword}`
+    `/api/search/${debouncedKeyword}`
   );
 
   console.log("Search Data", data);
