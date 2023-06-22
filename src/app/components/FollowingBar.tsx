@@ -2,11 +2,11 @@
 
 import useSWR from "swr";
 import { ClipLoader } from "react-spinners";
-import { DetailUser } from "@/model/user";
+import { HomeUser } from "@/model/user";
 import FollowingCarousel from "./FollowingCarousel";
 
 export default function FollowingBar({ email }: { email: string }) {
-  const { data, isLoading, error } = useSWR<DetailUser>(`/api/me`);
+  const { data, isLoading, error } = useSWR<HomeUser>(`/api/me`);
   const user = data?.following;
 
   if (error) return <div>failed to load</div>;

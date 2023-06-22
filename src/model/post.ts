@@ -1,4 +1,4 @@
-import { User } from "./user";
+import { AuthUser } from "./user";
 
 export type Comment = {
   comment: string;
@@ -17,6 +17,6 @@ export type FullPost = {
   image: string;
   text: string;
   createdAt: string;
-  likes: User[];
+  likes: AuthUser[];
   comments: Comment[];
 }

@@ -1,8 +1,8 @@
 type AvatarSize = "big" | "medium" | "small";
 type Props = {
   image?: string | null;
-  size: AvatarSize;
-  highlight: boolean;
+  size?: AvatarSize;
+  highlight?: boolean;
 };
 
 export default function Avatar({

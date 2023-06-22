@@ -1,8 +1,8 @@
-import { User } from "@/model/user";
+import { SimpleUser, AuthUser, SearchUser } from "@/model/user";
 import UserSearchBox from "./UserSearchBox";
 
 type Props = {
-  userList: User[];
+  userList: SearchUser[]
   text: string;
 };
 
@@ -13,9 +13,9 @@ export default function ShowUserList({ userList, text }: Props) {
 
   return (
     <>
-      {text === ""
-        ? userList.map((user) => <UserSearchBox userData={user} key={user.username}/>)
-        : searchData.map((user) => <UserSearchBox userData={user} key={user.username}/>)}
+      
+      
+      {searchData.map((user) => <UserSearchBox user={user} key={user.username}/>)}
     </>
   );
 }

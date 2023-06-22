@@ -3,7 +3,7 @@ import { BsBookmark, BsFillBookmarkFill } from "react-icons/bs";
 import { RiEmotionHappyLine } from "react-icons/ri";
 import { useSession } from "next-auth/react";
 import { FullPost, SimplePost } from "@/model/post";
-import { User } from "@/model/user";
+import { AuthUser } from "@/model/user";
 import { parseDate } from "@/util/date";
 
 type Props = {
