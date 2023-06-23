@@ -1,36 +1,69 @@
 "use client";
 
 import Link from "next/link";
-import { AiOutlineHome, AiFillHome } from "react-icons/ai";
-import { BsPlusSquareFill, BsPlusSquare } from "react-icons/bs";
-import { RiSearchLine, RiSearchFill } from "react-icons/ri";
+import {
+  HomeFillIcon,
+  HomeIcon,
+  NewFillIcon,
+  NewIcon,
+  SearchFillIcon,
+  SearchIcon,
+} from "./ui/icons";
 import { usePathname } from "next/navigation";
+import ColorButton from "./ui/ColorButton";
+import { useSession, signIn, signOut } from "next-auth/react";
+import Avatar from "./Avatar";
+
+const menu = [
+  {
+    href: "/",
+    icon: <HomeIcon />,
+    clickedIcon: <HomeFillIcon />,
+  },
+  {
+    href: "/search",
+    icon: <SearchIcon />,
+    clickedIcon: <SearchFillIcon />,
+  },
+  {
+    href: "/new",
+    icon: <NewIcon />,
+    clickedIcon: <NewFillIcon />,
+  },
+];
 
 export default function Header() {
   const pathname = usePathname();
+  const { data: session } = useSession();
+  const user = session?.user;
+
   return (
-    <header className="flex justify-between p-2 w-full max-w-6xl mx-auto items-center">
+    <header className="flex justify-between p-2 w-full max-w-screen-xl mx-auto items-center sticky top-[0px] z-1 bg-white">
       <Link href="/" className="font-black text-2xl">
         Instagram
       </Link>
       <nav className="flex items-center gap-2 text-xl">
-        <Link href="/" className="hover:text-gray-400">
-          {pathname == "/" ? <AiFillHome /> : <AiOutlineHome />}
-        </Link>
-        <Link href="/search" className="hover:text-gray-400">
-          {pathname == "/search" ? <RiSearchFill /> : <RiSearchLine />}
-        </Link>
-        <Link href="/newpost" className="hover:text-gray-400">
-          {pathname == "/newpost" ? <BsPlusSquareFill /> : <BsPlusSquare />}
-        </Link>
-        <Link
-          href="/signin"
-          className="rounded-lg bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-[2px] text-sm font-bold hover:bg-gray-400 hover:cursor-pointer"
-        >
-          <div className="rounded-md bg-white p-[2px] hover:bg-pink-100">
-            Sign in
-          </div>
-        </Link>
+        {menu.map((item) => (
+          <Link
+            href={item.href}
+            key={item.href}
+            className="hover:text-gray-400"
+          >
+            {pathname == item.href ? item.clickedIcon : item.icon}
+          </Link>
+        ))}
+        {session && (
+          <Link
+            href={`/user/${user?.name}`}
+          >
+            <Avatar image={user?.image} size="small" highlight={true}/>
+          </Link>
+        )}
+        {session ? (
+          <ColorButton text={"Sign out"} onClick={() => signOut()} size='small'/>
+        ) : (
+          <ColorButton text={"Sign in"} onClick={() => signIn()} size='small'/>
+        )}
       </nav>
     </header>
   );

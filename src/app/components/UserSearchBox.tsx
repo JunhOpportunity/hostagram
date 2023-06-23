@@ -1,26 +1,25 @@
+import { HomeUser, AuthUser, SearchUser } from "@/model/user";
 import Image from "next/image";
 import Link from "next/link";
-import { UserData } from "./ShowMiniProfile";
+import Avatar from "./Avatar";
 
-export default function UserSearchBox({ userData }: { userData: UserData }) {
+type Props = {
+  user: SearchUser;
+};
+
+export default function UserSearchBox({
+  user: { name, username, image, following, followers },
+}: Props) {
   return (
-    <Link href={`/user/${userData.userName}`} className="flex items-center gap-1 mx-auto y-[40px] w-[500px] p-[10px] border mt-[10px] cursor-pointer">
-      <div className="w-[75px] h-[75px] relative ">
-        <Image
-          className="rounded-full border-2"
-          src={`${userData.userImageUrl}`}
-          fill={true}
-          style={{ objectFit: "cover" }}
-          alt="User Image"
-        />
-      </div>
+    <Link
+      href={`/user/${username}`}
+      className="flex items-center gap-1 mx-auto y-[40px] w-[500px] p-[10px] border mt-[10px] cursor-pointer"
+    >
+      <Avatar image={image} />
       <div className="flex flex-col">
-        <div className="font-black">{userData.userName}</div>
-        <div>{userData.name}</div>
-        <div>
-          3 posts {userData.followers} followers {userData.following} following
-        </div>
-        
+        <p className="font-black">{username}</p>
+        <p>{name}</p>
+        <p>{`${followers} followers ${following} following`}</p>
       </div>
     </Link>
   );
