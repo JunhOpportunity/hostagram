@@ -1,4 +1,4 @@
-type AvatarSize = "big" | "medium" | "small";
+type AvatarSize = "xlarge" | "big" | "medium" | "small";
 type Props = {
   image?: string | null;
   size?: AvatarSize;
@@ -41,6 +41,10 @@ function getContainerSize(size: AvatarSize): string {
       return "w-[44px] h-[44px]";
     case "big":
       return "w-[64px] h-[64px] ";
+    case "xlarge":
+      return "w-[142px] h-[142px]";
+    default:
+      throw new Error(`Unsupported type size : ${size}`);
   }
 }
 
@@ -52,5 +56,9 @@ function getImageSizeStyle(size: AvatarSize): string {
       return "w-[42px] h-[42px]  p-[0.2rem] ";
     case "big":
       return "w-[60px] h-[60px]  p-[0.2rem] ";
+    case "xlarge":
+      return "w-[138px] h-[138px] p-[0.3rem]";
+    default:
+      throw new Error(`Unsupported type size : ${size}`);
   }
 }
