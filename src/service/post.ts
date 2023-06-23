@@ -39,8 +39,9 @@ export async function getFollowingPosts(email: string) {
 }
 
 export async function getPost(id: string) {
-  return client.fetch(
-    `*[_type == "post" && _id == "${id}"][0]{
+  return client
+    .fetch(
+      `*[_type == "post" && _id == "${id}"][0]{
       ...,
       "username": author->username,
       "userImage": author->image,
@@ -50,7 +51,47 @@ export async function getPost(id: string) {
       "id":_id,
       "createdAt":_createdAt
     }`
-  ).then((posts) =>
-  posts.map((post: SimplePost) => ({ ...post, image: urlFor(post.image) }))
-);
+    )
+    .then((posts) =>
+      posts.map((post: SimplePost) => ({ ...post, image: urlFor(post.image) }))
+    );
+}
+
+export async function getPostsOf(username: string) {
+  return client
+    .fetch(
+      `*[_type == "post" && author->username == "${username}"]
+      | order(_createdAt desc){
+        ${simplePostPorjection}
+      }`
+    )
+    .then((posts) =>
+      posts.map((post: SimplePost) => ({ ...post, image: urlFor(post.image) }))
+    );
+}
+
+export async function getLikedPostsOf(username: string) {
+  return client
+    .fetch(
+      `*[_type == "post" && "${username}" in likes[]->username]
+      | order(_createdAt desc){
+        ${simplePostPorjection}
+      }`
+    )
+    .then((posts) =>
+      posts.map((post: SimplePost) => ({ ...post, image: urlFor(post.image) }))
+    );
+}
+
+export async function getSavedPostsOf(username: string) {
+  return client
+    .fetch(
+      `*[_type == "post" && _id in *[_type=="user" && username=="${username}"].bookmarks[]._ref]
+      | order(_createdAt desc){
+        ${simplePostPorjection}
+      }`
+    )
+    .then((posts) =>
+      posts.map((post: SimplePost) => ({ ...post, image: urlFor(post.image) }))
+    );
 }
