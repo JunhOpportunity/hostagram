@@ -8,6 +8,12 @@ import { SimpleUser, AuthUser, SearchUser } from "@/model/user";
 import Error from "next/error";
 import GridSpinner from "../components/ui/GridSpinner";
 import useDebounce from "@/hooks/debounce";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'User Search',
+  description: 'Search users to follow'
+}
 
 type SwrType = {
   data?: AuthUser[];
