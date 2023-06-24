@@ -5,24 +5,34 @@ import { useSession } from "next-auth/react";
 import { FullPost, SimplePost } from "@/model/post";
 import { AuthUser } from "@/model/user";
 import { parseDate } from "@/util/date";
+import { dislikePost } from "@/service/post";
+import ToggleButton from "./ui/ToggleButton";
+import HeartIcon from "./ui/icons/HeartIcon";
+import HeartFillIcon from "./ui/icons/HeartFillIcon";
+import { useState } from "react";
 
 type Props = {
   post: SimplePost;
 };
 
 export default function PostInfo({ post }: Props) {
+  const [liked, setLiked] = useState(false);
   const { data: session } = useSession();
   const user = session?.user;
+  console.log("test", user);
+
+  console.log(post.likes);
+  // console.log(post.likes.find((data) => data.email === user?.email))
 
   return (
     <div>
       <div className="flex justify-between items-center my-2 px-4 text-2xl">
-        {post.likes.find((data) => data.email === user?.email) ? (
-          <AiFillHeart className="cursor-pointer text-red-500 duration-150 active:scale-75" />
-        ) : (
-          <AiOutlineHeart className="cursor-pointer duration-150 active:scale-75" />
-        )}
-        <BsBookmark className="cursor-pointer" />
+        <ToggleButton
+          toggled={liked}
+          onToggle={setLiked}
+          onIcon={<HeartFillIcon />}
+          offIcon={<HeartIcon />}
+        />
       </div>
       <div className="px-2 text-lg">
         <p>{`${post.likes?.length ?? 0} ${
@@ -47,3 +57,13 @@ export default function PostInfo({ post }: Props) {
     </div>
   );
 }
+
+// {user?.username != undefined &&
+//  post.likes.indexOf(user?.username) != -1 ? (
+//    <AiFillHeart
+//      onClick={onDeleteLike}
+//      className="cursor-pointer text-red-500 duration-150 active:scale-75"
+//    />
+//  ) : (
+//    <AiOutlineHeart className="cursor-pointer duration-150 active:scale-75" />
+//  )}
