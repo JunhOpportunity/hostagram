@@ -1,35 +1,37 @@
-import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import { BsBookmark, BsFillBookmarkFill } from "react-icons/bs";
 import { RiEmotionHappyLine } from "react-icons/ri";
 import { useSession } from "next-auth/react";
-import { FullPost, SimplePost } from "@/model/post";
-import { AuthUser } from "@/model/user";
+import { SimplePost } from "@/model/post";
 import { parseDate } from "@/util/date";
-import { dislikePost } from "@/service/post";
 import ToggleButton from "./ui/ToggleButton";
 import HeartIcon from "./ui/icons/HeartIcon";
 import HeartFillIcon from "./ui/icons/HeartFillIcon";
 import { useState } from "react";
+import { useSWRConfig } from "swr";
+import usePosts from "@/hooks/posts";
 
 type Props = {
   post: SimplePost;
 };
 
 export default function PostInfo({ post }: Props) {
-  const [liked, setLiked] = useState(false);
+  const { id, likes, username, text, createdAt } = post;
   const { data: session } = useSession();
   const user = session?.user;
-  console.log("test", user);
-
-  console.log(post.likes);
-  // console.log(post.likes.find((data) => data.email === user?.email))
+  const liked = user ? likes.includes(user.username) : false;
+  const [bookmarked, setBookmarked] = useState(false);
+  const {setLike} = usePosts();
+  const handleLike = (like: boolean) => {
+    if(user) {
+      setLike(post, user.username, like)
+    }
+  };
 
   return (
     <div>
       <div className="flex justify-between items-center my-2 px-4 text-2xl">
         <ToggleButton
           toggled={liked}
-          onToggle={setLiked}
+          onToggle={handleLike}
           onIcon={<HeartFillIcon />}
           offIcon={<HeartIcon />}
         />

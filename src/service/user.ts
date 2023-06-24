@@ -9,6 +9,7 @@ type OAuthUser = {
   username: string;
   image?: string | null;
 };
+
 export async function addUser({ username, email, name, image, id }: OAuthUser) {
   return client.createIfNotExists({
     _id: id,
