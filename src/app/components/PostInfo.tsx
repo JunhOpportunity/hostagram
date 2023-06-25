@@ -5,7 +5,7 @@ import { parseDate } from "@/util/date";
 import ToggleButton from "./ui/ToggleButton";
 import HeartIcon from "./ui/icons/HeartIcon";
 import HeartFillIcon from "./ui/icons/HeartFillIcon";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useSWRConfig } from "swr";
 import usePosts from "@/hooks/posts";
 
@@ -19,11 +19,16 @@ export default function PostInfo({ post }: Props) {
   const user = session?.user;
   const liked = user ? likes.includes(user.username) : false;
   const [bookmarked, setBookmarked] = useState(false);
-  const {setLike} = usePosts();
+  const [message, setMessage] = useState("");
+  const { setLike } = usePosts();
   const handleLike = (like: boolean) => {
-    if(user) {
-      setLike(post, user.username, like)
+    if (user) {
+      setLike(post, user.username, like);
     }
+  };
+
+  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.value);
   };
 
   return (
@@ -50,10 +55,18 @@ export default function PostInfo({ post }: Props) {
           <input
             className="w-full outline-none border-none ml-2"
             type="text"
+            value={message}
+            onChange={onChange}
             placeholder="Add a comment..."
             required
           />
-          <button className="font-bold text-sky-500 ml-2">submit</button>
+          <button
+            className={`font-bold ml-2 ${
+              message == "" ? "text-neutral-200" : "text-sky-500"
+            }`}
+          >
+            submit
+          </button>
         </form>
       </div>
     </div>
