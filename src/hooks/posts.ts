@@ -1,8 +1,8 @@
 import { SimplePost } from "@/model/post";
-import useSWR, { useSWRConfig } from "swr";
+import useSWR from "swr";
 
 async function updateLike(id: string, like: boolean) {
-  fetch("/api/likes", {
+  return fetch("/api/likes", {
     method: "PUT",
     body: JSON.stringify({ id, like }),
   }).then((res) => res.json());
@@ -16,12 +16,12 @@ export default function usePosts() {
       ...post,
       likes: like
         ? [...post.likes, username]
-        : post.likes.filter((item) => item !== username),
+        : post.likes.filter((item) => item.username !== username),
     };
     const newPosts = posts?.map((p) => (p.id === post.id ? newPost : p));
 
     return mutate(updateLike(post.id, like), {
-      optimisticData: newPost,
+      optimisticData: newPosts,
       populateCache: false,
       revalidate: false,
       rollbackOnError: true
