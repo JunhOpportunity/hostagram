@@ -3,6 +3,7 @@ export type AuthUser = {
   username: string;
   image?: string;
   email: string;
+  id: string;
 };
 
 export type SimpleUser = Pick<AuthUser, "username" | "image">;
@@ -16,8 +17,8 @@ export type HomeUser = AuthUser & {
 export type SearchUser = AuthUser & {
   following: number;
   followers: number;
-}
+};
 
 export type ProfileUser = SearchUser & {
   posts: number;
-}
+};

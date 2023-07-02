@@ -34,7 +34,11 @@ export async function getFollowingPosts(email: string) {
     | order(_createdAt desc){${simplePostPorjection}}`
     )
     .then((posts) =>
-      posts.map((post: SimplePost) => ({ ...post, image: urlFor(post.image) }))
+      posts.map((post: SimplePost) => ({
+        ...post,
+        likes: post.likes ?? [],
+        image: urlFor(post.image),
+      }))
     );
 }
 
@@ -53,7 +57,11 @@ export async function getPost(id: string) {
     }`
     )
     .then((posts) =>
-      posts.map((post: SimplePost) => ({ ...post, image: urlFor(post.image) }))
+      posts.map((post: SimplePost) => ({
+        ...post,
+        likes: post.likes ?? [],
+        image: urlFor(post.image),
+      }))
     );
 }
 
@@ -66,7 +74,11 @@ export async function getPostsOf(username: string) {
       }`
     )
     .then((posts) =>
-      posts.map((post: SimplePost) => ({ ...post, image: urlFor(post.image) }))
+      posts.map((post: SimplePost) => ({
+        ...post,
+        likes: post.likes ?? [],
+        image: urlFor(post.image),
+      }))
     );
 }
 
@@ -79,7 +91,11 @@ export async function getLikedPostsOf(username: string) {
       }`
     )
     .then((posts) =>
-      posts.map((post: SimplePost) => ({ ...post, image: urlFor(post.image) }))
+      posts.map((post: SimplePost) => ({
+        ...post,
+        likes: post.likes ?? [],
+        image: urlFor(post.image),
+      }))
     );
 }
 
@@ -92,6 +108,39 @@ export async function getSavedPostsOf(username: string) {
       }`
     )
     .then((posts) =>
-      posts.map((post: SimplePost) => ({ ...post, image: urlFor(post.image) }))
+      posts.map((post: SimplePost) => ({
+        ...post,
+        likes: post.likes ?? [],
+        image: urlFor(post.image),
+      }))
     );
+}
+
+export async function likePost(postId: string, userId: string) {
+  return client
+    .patch(postId)
+    .setIfMissing({ likes: [] })
+    .append("likes", [{ _ref: userId, _type: "reference" }])
+    .commit({ autoGenerateArrayKeys: true });
+}
+
+export async function dislikePost(postId: string, userId: string) {
+  return client
+    .patch(postId)
+    .unset([`likes[_ref=="${userId}]`])
+    .commit();
+}
+
+export async function addComment(
+  postId: string,
+  userId: string,
+  comment: string
+) {
+  return client
+    .patch(postId)
+    .setIfMissing({ comments: [] })
+    .append("comments", [
+      { comment, author: { _ref: userId, _type: "reference" } },
+    ])
+    .commit({ autoGenerateArrayKeys: true });
 }
