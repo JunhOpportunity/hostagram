@@ -9,6 +9,7 @@ type OAuthUser = {
   username: string;
   image?: string | null;
 };
+
 export async function addUser({ username, email, name, image, id }: OAuthUser) {
   return client.createIfNotExists({
     _id: id,
@@ -77,4 +78,19 @@ export async function getUserForProfile(username: string) {
       followers: user.followers ?? 0,
       posts: user.posts ?? 0,
     }));
+}
+
+export async function addBookmark(userId: string, postId: string) {
+  return client
+  .patch(userId)
+  .setIfMissing({ bookmarks: [] })
+  .append("bookmarks", [{ _ref: postId, _type: "reference" }])
+  .commit({ autoGenerateArrayKeys: true });
+}
+
+export async function removebookmark(userId: string, postId: string) {
+  return client
+  .patch(userId)
+  .unset([`bookmarks[_ref=="${postId}"]`])
+  .commit();
 }
